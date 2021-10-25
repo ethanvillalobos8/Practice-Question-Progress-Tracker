@@ -3,6 +3,7 @@
 #include <string>
 #include <stdlib.h>
 #include <limits>
+#include <iomanip>
 using namespace std;
 
 // menu function displays initial menu when called. returns nothing so type void is
@@ -13,7 +14,7 @@ void menu() {
 	cout << "1. To-do\n2. Repeat\n3. Done\n4. Exit\n" << endl;
 }
 
-// loops, sets the seek pointer of "file" to teh beginning of line "num"
+// loops, sets the seek pointer of "file" to the beginning of line "num"
 fstream& GotoLine(fstream& file, unsigned int num) {
 	file.seekg(ios::beg);
 	for (int i = 0; i < num - 1; ++i) {
@@ -62,6 +63,11 @@ int main() {
 				cout << "(A)dd Question\n";
 				cout << "(S)core Question\n";
 				cout << "(B)ack\n\n";
+				/*
+				fileOut.open("todo.txt", ios_base::app);
+				fileOut << left << setw(20) << "Name" << setw(20) << "Data Structure" << setw(20) << "Difficulty" << setw(20) << "Score" << endl << endl;
+				fileOut.close();
+				*/
 				fstream file("todo.txt");
 				GotoLine(file, 3);
 				string line3;
@@ -89,7 +95,7 @@ int main() {
 						cout << "Difficulty: ";
 						cin >> difficulty;
 						fileOut.open("todo.txt", ios_base::app);
-						fileOut << name_of_q << "					" << name_of_ds << "						" << difficulty << endl;
+						fileOut << left << setw(20) << name_of_q << setw(20) << name_of_ds << setw(20) << difficulty << setw(20) << '?' << endl;
 						fileOut.close();
 						cout << "\n\nQuestion saved.\n\n";
 						cout << "Add another? (Y/N): ";
@@ -120,8 +126,9 @@ int main() {
 						cin >> score;
 						fstream file("todo.txt");
 						GotoLine(file, qNum);
-						file.seekp(NULL);
-						file << "			" << score << endl;
+						double pos = file.tellp();
+						file.seekp(pos + 60);
+						file << score;
 						break;
 					}
 				}

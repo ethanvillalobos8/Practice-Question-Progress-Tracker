@@ -1,4 +1,6 @@
-Name					Data Structure					Difficulty						Score
+Name                Data Structure      Difficulty          Score               
 
-Test					Array						Hard
-Test2					Tree						Easy
+TestTest            Array               Easy                ?                   
+Test                Array               Easy                5                   
+HardQ               Trees               Hard                ?                   
+EasyQ               Strings             Easy                ?                   
