@@ -142,6 +142,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="done.txt" />
     <Text Include="repeat.txt" />
     <Text Include="todo.txt" />
   </ItemGroup>

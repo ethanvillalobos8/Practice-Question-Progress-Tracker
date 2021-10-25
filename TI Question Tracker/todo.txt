@@ -1,0 +1,4 @@
+Name					Data Structure					Difficulty						Score
+
+Test					Array						Hard
+Test2					Tree						Easy

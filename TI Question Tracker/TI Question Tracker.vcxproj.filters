@@ -26,5 +26,8 @@
     <Text Include="repeat.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="done.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
