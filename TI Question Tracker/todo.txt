@@ -1,6 +1,10 @@
 Name                Data Structure      Difficulty          Score               
 
-TestTest            Array               Easy                ?                   
+TestTest            Array               Easy                3                   
 Test                Array               Easy                5                   
-HardQ               Trees               Hard                ?                   
+HardQ               Trees               Hard                5                   
 EasyQ               Strings             Easy                ?                   
+Test                Strings             Hard                5                   
+DanaStinks          Dana                Hard                ?                   
+EthanRocks          Cool                Easy                1                   
+Pepsi'sCool         Coke                Medium              ?                   

@@ -141,12 +141,76 @@ int main() {
 			break;
 		case 2:
 			while (true) {
+				while (true) {
+					system("CLS");
+					cout << "Questions that Require Re-Clarification\n\n";
+					cout << "(R)e-Evaluate\n";
+					cout << "(M)ove to\n";
+					cout << "(B)ack\n\n";
+					fstream file("repeat.txt");
+					GotoLine(file, 3);
+					string line3;
+					file >> line3;
+					if (line3 == "") {
+						cout << "There are no questions to display.\n\n";
+					}
+					else {
+						cout << ifstream("repeat.txt").rdbuf() << "\n\n";
+					}
+					cout << ": ";
+					cin >> choice;
+					if (choice == 'r' || choice == 'R') {
+						system("CLS");
+						fstream file("repeat.txt");
+						GotoLine(file, 3);
+						string line3;
+						file >> line3;
+						if (line3 == "") {
+							system("CLS");
+							cout << "There are no questions to score.\n\n";
+							system("Pause"); system("CLS");
+						}
+						else {
+							while (true) {
+								int score;
+								cout << "Which question do you want to score?\n";
+								cout << "Question #: ";
+								cin >> qNum;
+								qNum = qNum + 2;
+								system("CLS");
+
+								evaluate();
+
+								cout << "Set Score for question " << qNum - 2 << ": ";
+								cin >> score;
+								fstream file("repeat.txt");
+								GotoLine(file, qNum);
+								double pos = file.tellp();
+								file.seekp(pos + 60);
+								file << score;
+								break;
+							}
+						}
+					}
+					break;
+				}
+				if (choice == 'm' || choice == 'M') {
+
+				}
+				else if (choice == 'b' || choice == 'B') {
+					system("CLS");
+					menu();
+					break;
+				}
+			}
+			break;
+		case 3:
+			while (true) {
 				system("CLS");
-				cout << "Questions that Require Re-Clarification\n\n";
-				cout << "(R)e-Evaluate\n";
-				cout << "(M)ove to\n\n";
-				cout << "Question List:\n\n";
-				fstream file("repeat.txt");
+				cout << "Questions that I've Nailed\n\n";
+				cout << "(M)ove to\n";
+				cout << "(B)ack\n\n";
+				fstream file("done.txt");
 				GotoLine(file, 3);
 				string line3;
 				file >> line3;
@@ -154,19 +218,18 @@ int main() {
 					cout << "There are no questions to display.\n\n";
 				}
 				else {
-					cout << ifstream("todo.txt").rdbuf() << "\n\n";
+					cout << ifstream("done.txt").rdbuf() << "\n\n";
 				}
 				cout << ": ";
 				cin >> choice;
-				break;
-			}
-			break;
-		case 3:
-			while (true) {
+				if (choice == 'm' || choice == 'M') {
+
+				}
+				else if (choice == 'b' || choice == 'B') {
 				system("CLS");
-				cout << "Questions that I've Nailed\n\n";
-				cout << "Question List:\n\n";
-				cout << ifstream("done.txt").rdbuf() << "\n\n";
+				menu();
+				break;
+				}
 				break;
 			}
 			break;

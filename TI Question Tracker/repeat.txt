@@ -1,2 +1,3 @@
-Name		Data Structure		Difficulty		Score
+Name                Data Structure      Difficulty          Score               
 
+TestTest            Array               Easy                5
