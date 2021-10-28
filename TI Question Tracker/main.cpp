@@ -46,56 +46,160 @@ void evaluate() {
 	cout << "\n\nYour final score for this problem is " << score_total << "\n\n";
 }
 
-void Move(int s, int q) {
-	if (s == 3 || s == 4) {
-		ofstream of("repeat.txt", ios_base::app);
-		ofstream temp("temp.txt");
-		string line;
-		ifstream inf("todo.txt");
-		int count = 0;
-		while (getline(inf, line)) {
-			if (count == q-1) {
-				of << line << endl;
-				cout << "This question has been moved to Repeat" << endl;
+void Move(int c, int s, int q) {
+	if (c == 1) {
+		if (s == 3 || s == 4) {
+			ofstream of("repeat.txt", ios_base::app);
+			ofstream temp("temp.txt");
+			string line;
+			ifstream inf("todo.txt");
+			int count = 0;
+			while (getline(inf, line)) {
+				if (count == q - 1) {
+					of << line << endl;
+					cout << "This question has been moved to Repeat" << endl;
+				}
+				else {
+					temp << line << endl;
+				}
+				count++;
 			}
-			else {
-				temp << line << endl;
-			}
-			count++;
+			inf.close();
+			of.close();
+			temp.close();
 		}
-		inf.close();
-		of.close();
-		temp.close();
-	}
-	else if (s == 5) {
-		ofstream of("done.txt", ios_base::app);
-		ofstream temp("temp.txt");
-		string line;
-		ifstream inf("todo.txt");
-		int count = 0;
-		while (getline(inf, line)) {
-			if (count == q-1) {
-				of << line << endl;
-				cout << "This question has been moved to Done" << endl;
+		else if (s == 5) {
+			ofstream of("done.txt", ios_base::app);
+			ofstream temp("temp.txt");
+			string line;
+			ifstream inf("todo.txt");
+			int count = 0;
+			while (getline(inf, line)) {
+				if (count == q - 1) {
+					of << line << endl;
+					cout << "This question has been moved to Done" << endl;
+				}
+				else {
+					temp << line << endl;
+				}
+				count++;
 			}
-			else {
-				temp << line << endl;
-			}
-			count++;
+			inf.close();
+			of.close();
+			temp.close();
 		}
-		inf.close();
-		of.close();
-		temp.close();
+		remove("todo.txt");
+		system("pause");
+		int result;
+		result = rename("temp.txt", "todo.txt");
+		if (result == 0)
+			NULL;
+		else
+			perror("\nInternal error: data transfer unsucsessful");
+		system("pause");
 	}
-	remove("todo.txt");
+	else if (c == 2) {
+		if (s == 1) {
+			ofstream of("todo.txt", ios_base::app);
+			ofstream temp("temp.txt");
+			string line;
+			ifstream inf("repeat.txt");
+			int count = 0;
+			while (getline(inf, line)) {
+				if (count == q - 1) {
+					of << line << endl;
+					cout << "This question has been moved to To-do" << endl;
+				}
+				else {
+					temp << line << endl;
+				}
+				count++;
+			}
+			inf.close();
+			of.close();
+			temp.close();
+		}
+		else if (s == 5) {
+			ofstream of("done.txt", ios_base::app);
+			ofstream temp("temp.txt");
+			string line;
+			ifstream inf("repeat.txt");
+			int count = 0;
+			while (getline(inf, line)) {
+				if (count == q - 1) {
+					of << line << endl;
+					cout << "This question has been moved to Done" << endl;
+				}
+				else {
+					temp << line << endl;
+				}
+				count++;
+			}
+			inf.close();
+			of.close();
+			temp.close();
+		}
+		remove("repeat.txt");
+		system("pause");
+		int result;
+		result = rename("temp.txt", "repeat.txt");
+		if (result == 0)
+			NULL;
+		else
+			perror("\nInternal error: data transfer unsucsessful");
+		system("pause");
+	}
+	else if (c == 3) {
+		if (s == 1) {
+			ofstream of("todo.txt", ios_base::app);
+			ofstream temp("temp.txt");
+			string line;
+			ifstream inf("done.txt");
+			int count = 0;
+			while (getline(inf, line)) {
+				if (count == q - 1) {
+					of << line << endl;
+					cout << "This question has been moved to To-do" << endl;
+				}
+				else {
+					temp << line << endl;
+				}
+				count++;
+			}
+			inf.close();
+			of.close();
+			temp.close();
+		}
+		else if (s == 3) {
+			ofstream of("repeat.txt", ios_base::app);
+			ofstream temp("temp.txt");
+			string line;
+			ifstream inf("done.txt");
+			int count = 0;
+			while (getline(inf, line)) {
+				if (count == q - 1) {
+					of << line << endl;
+					cout << "This question has been moved to Repeat" << endl;
+				}
+				else {
+					temp << line << endl;
+				}
+				count++;
+			}
+			inf.close();
+			of.close();
+			temp.close();
+		}
+	remove("done.txt");
 	system("pause");
 	int result;
-	result = rename("temp.txt", "todo.txt");
+	result = rename("temp.txt", "done.txt");
 	if (result == 0)
-		puts("\nFile successfully renamed");
+		NULL;
 	else
-		perror("\nError renaming file");
+		perror("\nInternal error: data transfer unsucsessful");
 	system("pause");
+	}
 }
 
 int main() {
@@ -190,7 +294,7 @@ int main() {
 						file.close();
 						break;
 					}
-					Move(score, qNum);
+					Move(bucket_choice, score, qNum);
 				}
 				else if (choice == 'b' || choice == 'B') {
 					System();
@@ -217,45 +321,67 @@ int main() {
 					else {
 						cout << ifstream("repeat.txt").rdbuf() << "\n\n";
 					}
+					file.close();
 					cout << ": ";
 					cin >> choice;
+
 					if (choice == 'r' || choice == 'R') {
-						system("CLS");
-						fstream file("repeat.txt");
-						GotoLine(file, 3);
-						string line3;
-						file >> line3;
-						if (line3 == "") {
+						System();
+						int score;
+						while (true) {
+							cout << "Which question do you want to re-score?\n";
+							cout << "Question #: ";
+							cin >> qNum;
+							qNum = qNum + 2;
 							System();
-							cout << "There are no questions to score.\n\n";
-							system("Pause"); System();
-						}
-						else {
-							while (true) {
-								int score;
-								cout << "Which question do you want to score?\n";
-								cout << "Question #: ";
-								cin >> qNum;
-								qNum = qNum + 2;
-								System();
 
-								evaluate();
+							evaluate();
 
-								cout << "Set Score for question " << qNum - 2 << ": ";
-								cin >> score;
-								fstream file("repeat.txt");
-								GotoLine(file, qNum);
-								double pos = file.tellp();
-								file.seekp(pos + 60);
-								file << score;
-								break;
-							}
+							cout << "Set Score for question " << qNum - 2 << ": ";
+							cin >> score;
+							fstream file("repeat.txt");
+							GotoLine(file, qNum);
+							double pos = file.tellp();
+							file.seekp(pos + 60);
+							file << score;
+							file.close();
+							break;
 						}
+						Move(bucket_choice, score, qNum);
 					}
 					break;
 				}
 				if (choice == 'm' || choice == 'M') {
-
+					System();
+					int score;
+					while (true) {
+						cout << "Which question do you want to move?\n\n";
+						cout << "Question #: ";
+						cin >> qNum;
+						qNum = qNum + 2;
+						System();
+						while (true) {
+							cout << "Where do you want to move question " << qNum << " to?\n\n";
+							cout << "1. To-do\n";
+							cout << "2. Done\n\n";
+							cout << ": ";
+							cin >> score;
+							if (score == 1) {
+								break;
+							}
+							else if (score == 2) {
+								score = score + 3;
+								break;
+							}
+							else {
+								cout << "Invalid input. Please try again.\n\n";
+								system("pause");
+							}
+						}
+						break;
+						System();
+					}
+					Move(bucket_choice, score, qNum);
 				}
 				else if (choice == 'b' || choice == 'B') {
 					System();
@@ -266,29 +392,61 @@ int main() {
 			break;
 		case 3:
 			while (true) {
-				System();
-				cout << "Questions that I've Nailed\n\n";
-				cout << "(M)ove to\n";
-				cout << "(B)ack\n\n";
-				fstream file("done.txt");
-				GotoLine(file, 3);
-				string line3;
-				file >> line3;
-				if (line3 == "") {
-					cout << "There are no questions to display.\n\n";
-				}
-				else {
-					cout << ifstream("done.txt").rdbuf() << "\n\n";
-				}
-				cout << ": ";
-				cin >> choice;
-				if (choice == 'm' || choice == 'M') {
-
-				}
-				else if (choice == 'b' || choice == 'B') {
-				System();
-				menu();
-				break;
+				while (true) {
+					System();
+					cout << "Questions that I've Nailed\n\n";
+					cout << "(M)ove to\n";
+					cout << "(B)ack\n\n";
+					fstream file("done.txt");
+					GotoLine(file, 3);
+					string line3;
+					file >> line3;
+					if (line3 == "") {
+						cout << "There are no questions to display.\n\n";
+					}
+					else {
+						cout << ifstream("done.txt").rdbuf() << "\n\n";
+					}
+					file.close();
+					cout << ": ";
+					cin >> choice;
+					if (choice == 'm' || choice == 'M') {
+						System();
+						int score;
+						while (true) {
+							cout << "Which question do you want to move?\n\n";
+							cout << "Question #: ";
+							cin >> qNum;
+							qNum = qNum + 2;
+							System();
+							while (true) {
+								cout << "Where do you want to move question " << qNum << " to?\n\n";
+								cout << "1. To-do\n";
+								cout << "2. Repeat\n\n";
+								cout << ": ";
+								cin >> score;
+								if (score == 1) {
+									break;
+								}
+								else if (score == 2) {
+									score = score + 1;
+									break;
+								}
+								else {
+									cout << "Invalid input. Please try again.\n\n";
+									system("pause");
+								}
+							}
+							break;
+							System();
+						}
+						Move(bucket_choice, score, qNum);
+					}
+					else if (choice == 'b' || choice == 'B') {
+						System();
+						menu();
+						break;
+					}
 				}
 				break;
 			}

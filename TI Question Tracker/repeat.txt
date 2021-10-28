@@ -1,3 +1,2 @@
 Name                Data Structure      Difficulty          Score               
 
-HardQ               Trees               Hard                3                   
