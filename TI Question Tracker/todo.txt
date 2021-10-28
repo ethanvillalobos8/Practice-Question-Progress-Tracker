@@ -1,2 +1,4 @@
 Name                Data Structure      Difficulty          Score               
 
+E                   E                   E                   1                   
+Test2               NA                  M                   5                   

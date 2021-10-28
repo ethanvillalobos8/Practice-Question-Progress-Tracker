@@ -48,7 +48,27 @@ void evaluate() {
 
 void Move(int c, int s, int q) {
 	if (c == 1) {
-		if (s == 3 || s == 4) {
+		if (s == 1 || s == 2) {
+			ofstream of("todo.txt", ios_base::app);
+			ofstream temp("temp.txt");
+			string line;
+			ifstream inf("todo.txt");
+			int count = 0;
+			while (getline(inf, line)) {
+				if (count == q - 1) {
+					of << line << endl;
+					cout << "This question has stayed in To-do" << endl;
+				}
+				else {
+					temp << line << endl;
+				}
+				count++;
+			}
+			inf.close();
+			of.close();
+			temp.close();
+		}
+		else if (s == 3 || s == 4) {
 			ofstream of("repeat.txt", ios_base::app);
 			ofstream temp("temp.txt");
 			string line;
@@ -191,7 +211,6 @@ void Move(int c, int s, int q) {
 			temp.close();
 		}
 	remove("done.txt");
-	system("pause");
 	int result;
 	result = rename("temp.txt", "done.txt");
 	if (result == 0)

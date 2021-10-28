@@ -1,2 +1,3 @@
 Name                Data Structure      Difficulty          Score               
 
+Test3               A                   E                   3                   
