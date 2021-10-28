@@ -144,6 +144,7 @@
   <ItemGroup>
     <Text Include="done.txt" />
     <Text Include="repeat.txt" />
+    <Text Include="temp.txt" />
     <Text Include="todo.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

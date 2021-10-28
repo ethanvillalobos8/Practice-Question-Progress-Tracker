@@ -4,7 +4,12 @@
 #include <stdlib.h>
 #include <limits>
 #include <iomanip>
+#include <stdio.h>
 using namespace std;
+
+void System() {
+	if (system("CLS")) system("clear");
+}
 
 // menu function displays initial menu when called. returns nothing so type void is
 // used.
@@ -27,7 +32,7 @@ void evaluate() {
 	int score1, score2, score3, score4, score_total;
 
 	cout << "Self Score Evaluation\n\n";
-	cout << "Rate yourself on a scale of 1-5 based on the follwoing questions:\n\n";
+	cout << "Rate yourself on a scale of 1-5 based on the following questions:\n\n";
 	cout << "1. Did you need hints? (1-5): ";
 	cin >> score1;
 	cout << "2. Did you finish within 30 minutes? (1-5): ";
@@ -39,6 +44,58 @@ void evaluate() {
 
 	score_total = (score1 + score2 + score3 + score4) / 4;
 	cout << "\n\nYour final score for this problem is " << score_total << "\n\n";
+}
+
+void Move(int s, int q) {
+	if (s == 3 || s == 4) {
+		ofstream of("repeat.txt", ios_base::app);
+		ofstream temp("temp.txt");
+		string line;
+		ifstream inf("todo.txt");
+		int count = 0;
+		while (getline(inf, line)) {
+			if (count == q-1) {
+				of << line << endl;
+				cout << "This question has been moved to Repeat" << endl;
+			}
+			else {
+				temp << line << endl;
+			}
+			count++;
+		}
+		inf.close();
+		of.close();
+		temp.close();
+	}
+	else if (s == 5) {
+		ofstream of("done.txt", ios_base::app);
+		ofstream temp("temp.txt");
+		string line;
+		ifstream inf("todo.txt");
+		int count = 0;
+		while (getline(inf, line)) {
+			if (count == q-1) {
+				of << line << endl;
+				cout << "This question has been moved to Done" << endl;
+			}
+			else {
+				temp << line << endl;
+			}
+			count++;
+		}
+		inf.close();
+		of.close();
+		temp.close();
+	}
+	remove("todo.txt");
+	system("pause");
+	int result;
+	result = rename("temp.txt", "todo.txt");
+	if (result == 0)
+		puts("\nFile successfully renamed");
+	else
+		perror("\nError renaming file");
+	system("pause");
 }
 
 int main() {
@@ -78,11 +135,12 @@ int main() {
 				else {
 					cout << ifstream("todo.txt").rdbuf() << "\n\n";
 				}
+				file.close();
 				cout << ": ";
 				cin >> choice;
 
 				if (choice == 'a' || choice == 'A') {
-					system("CLS");
+					System();
 					while (true) {
 						char yn;
 						string name_of_q;
@@ -102,7 +160,7 @@ int main() {
 						cin >> yn;
 
 						if (yn == 'y' || yn == 'Y') {
-							system("CLS");
+							System();
 							NULL;
 						}
 						else if (yn == 'n' || yn == 'N') {
@@ -111,14 +169,14 @@ int main() {
 					}
 				}
 				else if (choice == 's' || choice == 'S') {
-					system("CLS");
+					System();
+					int score;
 					while (true) {
-						int score;
 						cout << "Which question do you want to score?\n";
 						cout << "Question #: ";
 						cin >> qNum;
 						qNum = qNum + 2;
-						system("CLS");
+						System();
 
 						evaluate();
 
@@ -129,11 +187,13 @@ int main() {
 						double pos = file.tellp();
 						file.seekp(pos + 60);
 						file << score;
+						file.close();
 						break;
 					}
+					Move(score, qNum);
 				}
 				else if (choice == 'b' || choice == 'B') {
-					system("CLS");
+					System();
 					menu();
 					break;
 				}
@@ -142,7 +202,7 @@ int main() {
 		case 2:
 			while (true) {
 				while (true) {
-					system("CLS");
+					System();
 					cout << "Questions that Require Re-Clarification\n\n";
 					cout << "(R)e-Evaluate\n";
 					cout << "(M)ove to\n";
@@ -166,9 +226,9 @@ int main() {
 						string line3;
 						file >> line3;
 						if (line3 == "") {
-							system("CLS");
+							System();
 							cout << "There are no questions to score.\n\n";
-							system("Pause"); system("CLS");
+							system("Pause"); System();
 						}
 						else {
 							while (true) {
@@ -177,7 +237,7 @@ int main() {
 								cout << "Question #: ";
 								cin >> qNum;
 								qNum = qNum + 2;
-								system("CLS");
+								System();
 
 								evaluate();
 
@@ -198,7 +258,7 @@ int main() {
 
 				}
 				else if (choice == 'b' || choice == 'B') {
-					system("CLS");
+					System();
 					menu();
 					break;
 				}
@@ -206,7 +266,7 @@ int main() {
 			break;
 		case 3:
 			while (true) {
-				system("CLS");
+				System();
 				cout << "Questions that I've Nailed\n\n";
 				cout << "(M)ove to\n";
 				cout << "(B)ack\n\n";
@@ -226,7 +286,7 @@ int main() {
 
 				}
 				else if (choice == 'b' || choice == 'B') {
-				system("CLS");
+				System();
 				menu();
 				break;
 				}
