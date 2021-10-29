@@ -221,6 +221,38 @@ void Move(int c, int s, int q) {
 	}
 }
 
+int line_number(int c, int i) {
+	string line;
+	switch (c) {
+	case 1: {
+		ifstream file("todo.txt");
+		while (getline(file, line)) {
+			i++;
+		}
+		file.close();
+		break;
+	}
+	case 2: {
+		ifstream file2("repeat.txt");
+		while (getline(file2, line)) {
+			i++;
+		}
+		file2.close();
+		break;
+	}
+	case 3: {
+		ifstream file3("done.txt");
+		while (getline(file3, line)) {
+			i++;
+		}
+		file3.close();
+		break;
+	}
+	}
+	i = i - 2;
+	return i;
+}
+
 int main() {
 	menu();
 
@@ -228,6 +260,7 @@ int main() {
 		int bucket_choice;
 		char choice;
 		int qNum;
+		int lNum = 1;
 		ifstream fileIn;
 		ofstream fileOut;
 
@@ -245,7 +278,7 @@ int main() {
 				cout << "(B)ack\n\n";
 				/*
 				fileOut.open("todo.txt", ios_base::app);
-				fileOut << left << setw(20) << "Name" << setw(20) << "Data Structure" << setw(20) << "Difficulty" << setw(20) << "Score" << endl << endl;
+				fileOut << left << setw(3) << setw(20) << "Name" << setw(20) << "Data Structure" << setw(20) << "Difficulty" << setw(20) << "Score" << endl << endl;
 				fileOut.close();
 				*/
 				fstream file("todo.txt");
@@ -276,7 +309,7 @@ int main() {
 						cout << "Difficulty: ";
 						cin >> difficulty;
 						fileOut.open("todo.txt", ios_base::app);
-						fileOut << left << setw(20) << name_of_q << setw(20) << name_of_ds << setw(20) << difficulty << setw(20) << '?' << endl;
+						fileOut << left << setw(5) << line_number(bucket_choice, lNum) << setw(20) << name_of_q << setw(20) << name_of_ds << setw(20) << difficulty << setw(20) << '?' << endl;
 						fileOut.close();
 						cout << "\n\nQuestion saved.\n\n";
 						cout << "Add another? (Y/N): ";
@@ -308,7 +341,7 @@ int main() {
 						fstream file("todo.txt");
 						GotoLine(file, qNum);
 						double pos = file.tellp();
-						file.seekp(pos + 60);
+						file.seekp(pos + 65);
 						file << score;
 						file.close();
 						break;
