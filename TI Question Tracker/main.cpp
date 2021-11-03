@@ -14,9 +14,9 @@ void System() {
 // menu function displays initial menu when called. returns nothing so type void is
 // used.
 void menu() {
-	cout << "Progress Tracker" << endl;
+	cout << "Skill Tracker | CSCI Focused" << endl;
 	cout << endl << "Choose 1 of the following: \n\n";
-	cout << "1. To-do\n2. Repeat\n3. Done\n4. Exit\n" << endl;
+	cout << "1. To-do\n2. Repeat\n3. Done\n" << endl;
 }
 
 // loops, sets the seek pointer of "file" to the beginning of line "num"
@@ -29,21 +29,22 @@ fstream& GotoLine(fstream& file, unsigned int num) {
 }
 
 void evaluate() {
-	int score1, score2, score3, score4, score_total;
+	double score1, score2, score3, score4, score_total;
 
 	cout << "Self Score Evaluation\n\n";
-	cout << "Rate yourself on a scale of 1-5 based on the following questions:\n\n";
-	cout << "1. Did you need hints? (1-5): ";
+	cout << "Rate your performance on a scale of 1-5 based on the following questions:\n\n";
+	cout << "1 - Below Expectations 2 - Needs Improvement 3 - Meets Expectations\n4 - Exceeds Expectations 5 - Spectacular Performance\n\n";
+	cout << "1. I was able to complete the task without hints (1-5): ";
 	cin >> score1;
-	cout << "2. Did you finish within 30 minutes? (1-5): ";
+	cout << "2. I was able to finish the task within 30 minutes (1-5): ";
 	cin >> score2;
-	cout << "3. Was the solution optimal? (1-5): ";
+	cout << "3. The solution to the task was clean, efficient, and optimal (1-5): ";
 	cin >> score3;
-	cout << "4. Were there any bugs? (1-5): ";
+	cout << "4. There were no bugs or errors (1-5): ";
 	cin >> score4;
 
-	score_total = (score1 + score2 + score3 + score4) / 4;
-	cout << "\n\nYour final score for this problem is " << score_total << "\n\n";
+	score_total = (score1 + score2 + score3 + score4) / 4.0;
+	cout << "\n\nYour final score for this problem is " << score_total << " -> " << round(score_total) << "\n\n";
 }
 
 int line_number(int c, int i) {
@@ -364,8 +365,20 @@ int main() {
 		ifstream fileIn;
 		ofstream fileOut;
 
-		cout << "Enter choice: ";
-		cin >> bucket_choice;
+		while (true) {
+			cout << "Enter choice: ";
+			cin >> bucket_choice;
+
+			if (bucket_choice == 1 || bucket_choice == 2 || bucket_choice == 3) {
+				break;
+			}
+			else {
+				cout << "\nInvalid input, please try again.\n\n";
+				system("pause");
+				System();
+				menu();
+			}
+		}
 
 		// switch to identify user choice and proceeds with actions accordingly.
 		switch (bucket_choice) {
@@ -673,9 +686,6 @@ int main() {
 				}
 				break;
 			}
-			break;
-		case 4:
-			return 0;
 			break;
 		}
 	}
