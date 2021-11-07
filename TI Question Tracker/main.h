@@ -374,3 +374,159 @@ void move_feature(int c, int s, int q) {
 		system("pause");
 	}
 }
+
+void delete_feature(int c, int q) {
+	if (c == 1) {
+		ofstream temp("temp.txt");
+		string line;
+		ifstream inf("todo.txt");
+		int count = 0;
+
+		while (getline(inf, line)) {
+			if (count == q - 1) {
+				NULL;
+			}
+			else {
+				if (!line_number(1, 1) || !line_number(1, 2)) {
+					temp << left << setw(5) << line_number(1, 1) << line.substr(5, line.size()) << endl;
+				}
+				else {
+					temp << line << endl;
+				}
+			}
+
+			for (int j = 3; !temp.eof(); j++) {
+				fstream file("temp.txt");
+				GotoLine(file, j);
+				string num;
+				file >> num;
+				double pos = file.tellp();
+				file.seekp(pos - 1);
+
+				if (num != "") {
+					file << j - 2;
+				}
+				else {
+					break;
+				}
+				file.close();
+			}
+			count++;
+		}
+		inf.close();
+		temp.close();
+
+		remove("todo.txt");
+		int result;
+		result = rename("temp.txt", "todo.txt");
+
+		if (result == 0)
+			NULL;
+		else
+			perror("\nInternal error: data transfer unsucsessful");
+		cout << "This question has been deleted.\n\n";
+		system("pause");
+	}
+	else if (c == 2) {
+		ofstream temp("temp.txt");
+		string line;
+		ifstream inf("repeat.txt");
+		int count = 0;
+
+		while (getline(inf, line)) {
+			if (count == q - 1) {
+				NULL;
+			}
+			else {
+				if (!line_number(2, 1) || !line_number(2, 2)) {
+					temp << left << setw(5) << line_number(2, 1) << line.substr(5, line.size()) << endl;
+				}
+				else {
+					temp << line << endl;
+				}
+			}
+
+			for (int j = 3; !temp.eof(); j++) {
+				fstream file("temp.txt");
+				GotoLine(file, j);
+				string num;
+				file >> num;
+				double pos = file.tellp();
+				file.seekp(pos - 1);
+
+				if (num != "") {
+					file << j - 2;
+				}
+				else {
+					break;
+				}
+				file.close();
+			}
+			count++;
+		}
+		inf.close();
+		temp.close();
+
+		remove("repeat.txt");
+		int result;
+		result = rename("temp.txt", "repeat.txt");
+
+		if (result == 0)
+			NULL;
+		else
+			perror("\nInternal error: data transfer unsucsessful");
+		cout << "This question has been deleted.\n\n";
+		system("pause");
+	}
+	else if (c == 3) {
+	ofstream temp("temp.txt");
+	string line;
+	ifstream inf("done.txt");
+	int count = 0;
+
+	while (getline(inf, line)) {
+		if (count == q - 1) {
+			NULL;
+		}
+		else {
+			if (!line_number(3, 1) || !line_number(3, 2)) {
+				temp << left << setw(5) << line_number(3, 1) << line.substr(5, line.size()) << endl;
+			}
+			else {
+				temp << line << endl;
+			}
+		}
+
+		for (int j = 3; !temp.eof(); j++) {
+			fstream file("temp.txt");
+			GotoLine(file, j);
+			string num;
+			file >> num;
+			double pos = file.tellp();
+			file.seekp(pos - 1);
+
+			if (num != "") {
+				file << j - 2;
+			}
+			else {
+				break;
+			}
+			file.close();
+		}
+		count++;
+	}
+	inf.close();
+	temp.close();
+
+	remove("done.txt");
+	int result;
+	result = rename("temp.txt", "done.txt");
+
+	if (result == 0)
+		NULL;
+	else
+		perror("\nInternal error: data transfer unsucsessful");
+	cout << "This question has been deleted.\n\n";
+	system("pause");
+	}
+}

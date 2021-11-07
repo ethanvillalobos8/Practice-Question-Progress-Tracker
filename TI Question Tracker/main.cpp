@@ -35,6 +35,7 @@ int main() {
 				cout << "Questions To-do\n\n";
 				cout << "(A)dd Question\n";
 				cout << "(S)core Question\n";
+				cout << "(D)elete Question\n";
 				cout << "(B)ack\n\n";
 				
 				fstream file("todo.txt");
@@ -130,6 +131,32 @@ int main() {
 						NULL;
 					}
 				}
+				else if (tab_choice == 'd' || tab_choice == 'D') {
+					while (true) {
+						fstream file("todo.txt");
+						GotoLine(file, 3);
+						string line3;
+						file >> line3;
+
+						if (line3 == "") {
+							system_clear();
+							cout << "There are no questions to delete.\n\n";
+							system("pause");
+							break;
+						}
+						else {
+							cout << "\nWhich question do you want to delete?\n\n";
+							cout << "Question #: ";
+							cin >> question_num;
+							question_num = question_num + 2;
+							system_clear();
+						}
+						system_clear();
+						file.close();
+						delete_feature(bucket_choice, question_num);
+						break;
+					}
+				}
 				else if (tab_choice == 'b' || tab_choice == 'B') {
 					system_clear();
 					main_menu();
@@ -144,6 +171,7 @@ int main() {
 					cout << "Questions that Require Re-Clarification\n\n";
 					cout << "(R)e-Evaluate\n";
 					cout << "(M)ove to\n";
+					cout << "(D)elete Question\n";
 					cout << "(B)ack\n\n";
 
 					fstream file("repeat.txt");
@@ -257,6 +285,32 @@ int main() {
 						move_feature(bucket_choice, score, question_num);
 					}
 				}
+				else if (tab_choice == 'd' || tab_choice == 'D') {
+					while (true) {
+						fstream file("repeat.txt");
+						GotoLine(file, 3);
+						string line3;
+						file >> line3;
+
+						if (line3 == "") {
+							system_clear();
+							cout << "There are no questions to delete.\n\n";
+							system("pause");
+							break;
+						}
+						else {
+							cout << "\nWhich question do you want to delete?\n\n";
+							cout << "Question #: ";
+							cin >> question_num;
+							question_num = question_num + 2;
+							system_clear();
+						}
+						system_clear();
+						file.close();
+						delete_feature(bucket_choice, question_num);
+						break;
+					}
+				}
 				else if (tab_choice == 'b' || tab_choice == 'B') {
 					system_clear();
 					main_menu();
@@ -270,6 +324,7 @@ int main() {
 					system_clear();
 					cout << "Questions that I've Nailed\n\n";
 					cout << "(M)ove to\n";
+					cout << "(D)elete Question\n";
 					cout << "(B)ack\n\n";
 
 					fstream file("done.txt");
@@ -337,6 +392,32 @@ int main() {
 						}
 						else {
 							move_feature(bucket_choice, score, question_num);
+						}
+					}
+					else if (tab_choice == 'd' || tab_choice == 'D') {
+						while (true) {
+							fstream file("done.txt");
+							GotoLine(file, 3);
+							string line3;
+							file >> line3;
+
+							if (line3 == "") {
+								system_clear();
+								cout << "There are no questions to delete.\n\n";
+								system("pause");
+								break;
+							}
+							else {
+								cout << "\nWhich question do you want to delete?\n\n";
+								cout << "Question #: ";
+								cin >> question_num;
+								question_num = question_num + 2;
+								system_clear();
+							}
+							system_clear();
+							file.close();
+							delete_feature(bucket_choice, question_num);
+							break;
 						}
 					}
 					else if (tab_choice == 'b' || tab_choice == 'B') {
