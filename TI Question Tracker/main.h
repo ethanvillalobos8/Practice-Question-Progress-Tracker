@@ -118,6 +118,7 @@ void move_feature(int c, int s, int q) {
 					file >> num;
 					double pos = file.tellp();
 					file.seekp(pos - 1);
+
 					if (num != "") {
 						file << j - 2;
 					}

@@ -60,12 +60,28 @@ int main() {
 						string name_of_ds;
 						string difficulty;
 
+						cout << "Enter 'C' to cancel action\n\n";
 						cout << "Name of question: ";
 						cin >> name_of_q;
+
+						if (name_of_q == "c" || name_of_q == "C") {
+							break;
+						}
+
 						cout << "Name of data structure: ";
 						cin >> name_of_ds;
+
+						if (name_of_ds == "c" || name_of_ds == "C") {
+							break;
+						}
+
 						cout << "Difficulty: ";
 						cin >> difficulty;
+
+						if (difficulty == "c" || difficulty == "C") {
+							break;
+						}
+
 
 						fileOut.open("todo.txt", ios_base::app);
 						fileOut << left << setw(5) << line_number(bucket_choice, line_num) << setw(20) << name_of_q << setw(20) << name_of_ds << setw(20) << difficulty << setw(20) << '?' << endl;
@@ -103,20 +119,39 @@ int main() {
 							cout << "Question #: ";
 							cin >> question_num;
 							question_num = question_num + 2;
-							system_clear();
 
-							self_evaluate();
-
-							cout << "Set Score for question " << question_num - 2 << ": ";
-							cin >> score;
-
-							fstream file("todo.txt");
 							GotoLine(file, question_num);
-							double pos = file.tellp();
-							file.seekp(pos + 65);
-							file << score;
-							file.close();
-							break;
+							string qL;
+							file >> qL;
+
+							if (qL == "") {
+								system_clear();
+								cout << "Invalid input. Please try again\n\n";
+								system("pause");
+								system_clear();
+								cout << "Questions To-do\n\n";
+								cout << "(A)dd Question\n";
+								cout << "(S)core Question\n";
+								cout << "(D)elete Question\n";
+								cout << "(B)ack\n\n";
+								cout << ifstream("todo.txt").rdbuf() << "\n\n";
+							}
+							else {
+								system_clear();
+
+								self_evaluate();
+
+								cout << "Set Score for question " << question_num - 2 << ": ";
+								cin >> score;
+
+								fstream file("todo.txt");
+								GotoLine(file, question_num);
+								double pos = file.tellp();
+								file.seekp(pos + 65);
+								file << score;
+								file.close();
+								break;
+							}
 						}
 						file.close();
 					}
@@ -152,9 +187,29 @@ int main() {
 							system_clear();
 						}
 						system_clear();
+
+						GotoLine(file, question_num);
+						string qL;
+						file >> qL;
+
 						file.close();
-						delete_feature(bucket_choice, question_num);
-						break;
+
+						if (qL == "") {
+							system_clear();
+							cout << "Invalid input. Please try again\n\n";
+							system("pause");
+							system_clear();
+							cout << "Questions To-do\n\n";
+							cout << "(A)dd Question\n";
+							cout << "(S)core Question\n";
+							cout << "(D)elete Question\n";
+							cout << "(B)ack\n\n";
+							cout << ifstream("todo.txt").rdbuf() << "\n\n";
+						}
+						else {
+							delete_feature(bucket_choice, question_num);
+							break;
+						}
 					}
 				}
 				else if (tab_choice == 'b' || tab_choice == 'B') {
@@ -210,18 +265,36 @@ int main() {
 								question_num = question_num + 2;
 								system_clear();
 
-								self_evaluate();
-
-								cout << "Set Score for question " << question_num - 2 << ": ";
-								cin >> score;
-
-								fstream file("repeat.txt");
 								GotoLine(file, question_num);
-								double pos = file.tellp();
-								file.seekp(pos + 65);
-								file << score;
-								file.close();
-								break;
+								string qL;
+								file >> qL;
+
+								if (qL == "") {
+									system_clear();
+									cout << "Invalid input. Please try again\n\n";
+									system("pause");
+									system_clear();
+									cout << "Questions that Require Re-Clarification\n\n";
+									cout << "(R)e-Evaluate\n";
+									cout << "(M)ove to\n";
+									cout << "(D)elete Question\n";
+									cout << "(B)ack\n\n";
+									cout << ifstream("repeat.txt").rdbuf() << "\n\n";
+								}
+								else {
+									self_evaluate();
+
+									cout << "Set Score for question " << question_num - 2 << ": ";
+									cin >> score;
+
+									fstream file("repeat.txt");
+									GotoLine(file, question_num);
+									double pos = file.tellp();
+									file.seekp(pos + 65);
+									file << score;
+									file.close();
+									break;
+								}
 							}
 						}
 						if (score == 679936354) {
@@ -254,27 +327,45 @@ int main() {
 							question_num = question_num + 2;
 							system_clear();
 
-							while (true) {
-								cout << "Where do you want to move question " << question_num << " to?\n\n";
-								cout << "1. To-do\n";
-								cout << "2. Done\n\n";
-								cout << ": ";
-								cin >> score;
+							GotoLine(file, question_num);
+							string qL;
+							file >> qL;
 
-								if (score == 1) {
-									break;
-								}
-								else if (score == 2) {
-									score = score + 3;
-									break;
-								}
-								else {
-									cout << "Invalid input. Please try again.\n\n";
-									system("pause");
-								}
+							if (qL == "") {
+								system_clear();
+								cout << "Invalid input. Please try again\n\n";
+								system("pause");
+								system_clear();
+								cout << "Questions that Require Re-Clarification\n\n";
+								cout << "(R)e-Evaluate\n";
+								cout << "(M)ove to\n";
+								cout << "(D)elete Question\n";
+								cout << "(B)ack\n\n";
+								cout << ifstream("repeat.txt").rdbuf() << "\n\n";
 							}
-							break;
-							system_clear();
+							else {
+								while (true) {
+									cout << "Where do you want to move question " << question_num << " to?\n\n";
+									cout << "1. To-do\n";
+									cout << "2. Done\n\n";
+									cout << ": ";
+									cin >> score;
+
+									if (score == 1) {
+										break;
+									}
+									else if (score == 2) {
+										score = score + 3;
+										break;
+									}
+									else {
+										cout << "Invalid input. Please try again.\n\n";
+										system("pause");
+									}
+								}
+								break;
+								system_clear();
+							}
 						}
 						file.close();
 					}
@@ -306,9 +397,29 @@ int main() {
 							system_clear();
 						}
 						system_clear();
+
+						GotoLine(file, question_num);
+						string qL;
+						file >> qL;
+
 						file.close();
-						delete_feature(bucket_choice, question_num);
-						break;
+
+						if (qL == "") {
+							system_clear();
+							cout << "Invalid input. Please try again\n\n";
+							system("pause");
+							system_clear();
+							cout << "Questions that Require Re-Clarification\n\n";
+							cout << "(R)e-Evaluate\n";
+							cout << "(M)ove to\n";
+							cout << "(D)elete Question\n";
+							cout << "(B)ack\n\n";
+							cout << ifstream("repeat.txt").rdbuf() << "\n\n";
+						}
+						else {
+							delete_feature(bucket_choice, question_num);
+							break;
+						}
 					}
 				}
 				else if (tab_choice == 'b' || tab_choice == 'B') {
@@ -363,27 +474,44 @@ int main() {
 								question_num = question_num + 2;
 								system_clear();
 
-								while (true) {
-									cout << "Where do you want to move question " << question_num << " to?\n\n";
-									cout << "1. To-do\n";
-									cout << "2. Repeat\n\n";
-									cout << ": ";
-									cin >> score;
+								GotoLine(file, question_num);
+								string qL;
+								file >> qL;
 
-									if (score == 1) {
-										break;
-									}
-									else if (score == 2) {
-										score = score + 1;
-										break;
-									}
-									else {
-										cout << "Invalid input. Please try again.\n\n";
-										system("pause");
-									}
+								if (qL == "") {
+									system_clear();
+									cout << "Invalid input. Please try again\n\n";
+									system("pause");
+									system_clear();
+									cout << "Questions that I've Nailed\n\n";
+									cout << "(M)ove to\n";
+									cout << "(D)elete Question\n";
+									cout << "(B)ack\n\n";
+									cout << ifstream("done.txt").rdbuf() << "\n\n";
 								}
-								break;
-								system_clear();
+								else {
+									while (true) {
+										cout << "Where do you want to move question " << question_num << " to?\n\n";
+										cout << "1. To-do\n";
+										cout << "2. Repeat\n\n";
+										cout << ": ";
+										cin >> score;
+
+										if (score == 1) {
+											break;
+										}
+										else if (score == 2) {
+											score = score + 1;
+											break;
+										}
+										else {
+											cout << "Invalid input. Please try again.\n\n";
+											system("pause");
+										}
+									}
+									break;
+									system_clear();
+								}
 							}
 							file.close();
 						}
@@ -415,9 +543,28 @@ int main() {
 								system_clear();
 							}
 							system_clear();
+
+							GotoLine(file, question_num);
+							string qL;
+							file >> qL;
+
 							file.close();
-							delete_feature(bucket_choice, question_num);
-							break;
+
+							if (qL == "") {
+								system_clear();
+								cout << "Invalid input. Please try again\n\n";
+								system("pause");
+								system_clear();
+								cout << "Questions that I've Nailed\n\n";
+								cout << "(M)ove to\n";
+								cout << "(D)elete Question\n";
+								cout << "(B)ack\n\n";
+								cout << ifstream("done.txt").rdbuf() << "\n\n";
+							}
+							else {
+								delete_feature(bucket_choice, question_num);
+								break;
+							}
 						}
 					}
 					else if (tab_choice == 'b' || tab_choice == 'B') {
